@@ -196,6 +196,18 @@ optional_groupwise_layers = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26]
 g2_map = {l: 2 for l in optional_groupwise_layers}
 g4_map = {l: 4 for l in optional_groupwise_layers}
 
+def create_RepVGG_P1(deploy=False, use_checkpoint=False):
+    return RepVGG(num_blocks=[3, 5, 7, 4], num_classes=1000,
+                  width_multiplier=[0.5, 0.5, 0.5, 0.5], override_groups_map=None, deploy=deploy, use_checkpoint=use_checkpoint)
+
+def create_RepVGG_H1(deploy=False, use_checkpoint=False):
+    return RepVGG(num_blocks=[3, 5, 15, 1], num_classes=1000,
+                  width_multiplier=[1, 1, 1, 2.5], override_groups_map=None, deploy=deploy, use_checkpoint=use_checkpoint)
+
+def create_RepVGG_H2(deploy=False, use_checkpoint=False):
+    return RepVGG(num_blocks=[3, 5, 15, 1], num_classes=1000,
+                  width_multiplier=[1, 1, 1, 2.5], override_groups_map=None, deploy=deploy, use_checkpoint=use_checkpoint)
+
 def create_RepVGG_A0(deploy=False, use_checkpoint=False):
     return RepVGG(num_blocks=[2, 4, 14, 1], num_classes=1000,
                   width_multiplier=[0.75, 0.75, 0.75, 2.5], override_groups_map=None, deploy=deploy, use_checkpoint=use_checkpoint)
@@ -270,6 +282,10 @@ func_dict = {
 'RepVGG-B3g2': create_RepVGG_B3g2,
 'RepVGG-B3g4': create_RepVGG_B3g4,
 'RepVGG-D2se': create_RepVGG_D2se,      #   Updated at April 25, 2021. This is not reported in the CVPR paper.
+'RepVGG-B3g4': create_RepVGG_B3g4,
+'RepVGG-P1': create_RepVGG_P1,  # PAS Model
+'RepVGG-H1': create_RepVGG_H1,  # A1 optimized
+'RepVGG-H2': create_RepVGG_H2,  # Large Backbone optimized
 }
 def get_RepVGG_func_by_name(name):
     return func_dict[name]

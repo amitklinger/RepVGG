@@ -17,7 +17,7 @@ from train.config import get_config
 from data import build_loader
 from train.lr_scheduler import build_scheduler
 from train.logger import create_logger
-from utils import load_checkpoint, save_checkpoint, get_grad_norm, auto_resume_helper, reduce_tensor, save_latest, update_model_ema, unwrap_model
+from utils import load_weights, load_checkpoint, save_checkpoint, get_grad_norm, auto_resume_helper, reduce_tensor, save_latest, update_model_ema, unwrap_model
 import copy
 from train.optimizer import build_optimizer
 from repvggplus import create_RepVGGplus_by_name
@@ -76,8 +76,7 @@ def main(config):
     dataset_train, dataset_val, data_loader_train, data_loader_val, mixup_fn = build_loader(config)
 
     logger.info(f"Creating model:{config.MODEL.ARCH}")
-
-    model = create_RepVGGplus_by_name(config.MODEL.ARCH, deploy=False, use_checkpoint=args.use_checkpoint)
+    model = create_RepVGGplus_by_name(config.MODEL.ARCH, deploy=args.eval, use_checkpoint=args.use_checkpoint)
     optimizer = build_optimizer(config, model)
 
     logger.info(str(model))
@@ -127,7 +126,6 @@ def main(config):
         model_ema = copy.deepcopy(model)
     else:
         model_ema = None
-
     if config.TRAIN.AUTO_RESUME:
         resume_file = auto_resume_helper(config.OUTPUT)
         if resume_file:
