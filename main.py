@@ -69,9 +69,6 @@ def parse_option():
     return args, config
 
 
-
-
-
 def main(config):
     dataset_train, dataset_val, data_loader_train, data_loader_val, mixup_fn = build_loader(config)
 

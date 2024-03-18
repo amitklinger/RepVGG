@@ -205,7 +205,7 @@ def create_RepVGG_H1(deploy=False, use_checkpoint=False):
                   width_multiplier=[1, 1, 1, 2.5], override_groups_map=None, deploy=deploy, use_checkpoint=use_checkpoint)
 
 def create_RepVGG_H2(deploy=False, use_checkpoint=False):
-    return RepVGG(num_blocks=[3, 5, 15, 1], num_classes=1000,
+    return RepVGG(num_blocks=[4, 6, 16, 1], num_classes=1000,
                   width_multiplier=[1, 1, 1, 2.5], override_groups_map=None, deploy=deploy, use_checkpoint=use_checkpoint)
 
 def create_RepVGG_A0(deploy=False, use_checkpoint=False):
